@@ -1,0 +1,266 @@
+
+<head>
+	<title>
+		Dashboard
+	</title>
+	<link rel="stylesheet" type="text/css" href="../_src/styles.css">
+</head>
+
+<div id="dashboardContainer" ng-controller="dashboardController as dash">
+	<div id="projectForm" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Create New Project</h4>
+				</div>
+				
+				<div class="modal-body">
+					<label for="newProjectName">New Project Name:</label>
+					<div class="input-group">
+						<input type="projectName" class="form-control" ng-model="newProjectName" id="newProjectName">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button" ng-click="dash.createNewProject()">Add</button>
+						</span>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="addTimeForm" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Create an Unassigned Time</h4>
+					<p>All Fields on this form are required to enable the submit button.</p>
+				</div>
+				
+				<form name="newTimeForm" class="modal-body">
+					
+					<label for="newTimeDate">Beginning Date/Time:</label>
+					<input type="date" class="form-control" id="newStartTimeDate" name="newStartTimeDate" placeholder="yyyy-MM-dd" ng-model="newStartTimeDate" required >
+					<input type="time" class="form-control" id="newStartTimeTime" name="newStartTimeTime" ng-model="newStartTimeTime" required >
+					
+					<label for="newTimeDate">End Date/Time:</label>
+					<input type="date" class="form-control" id="newEndTimeDate" placeholder="yyyy-MM-dd" ng-model="newEndTimeDate" name="newEndTimeDate" required>
+					<input type="time" class="form-control" id="newEndTimeTime" name="newEndTimeTime" ng-model="newEndTimeTime" required >
+					
+					
+				
+					<div class="modal-footer">
+					
+						<button type="button" class="btn btn-default" ng-click="dash.createNewUnassignedTime(newTimeTitle, newTimeDate, newTimeTime, newEndDate, newEndTime)"
+							ng-disabled="newTimeForm.newStartTimeDate.$invalid || newTimeForm.newStartTimeTime.$invalid ||
+							newTimeForm.newEndTimeDate.$invalid || newTimeForm.newEndTimeTime.$invalid">Submit</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="editTimeForm" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Time</h4>
+					<div class="dropdown">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose the time you want to edit
+						
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li ng-repeat="aTime in dash.activeProject.allMyTimes">
+								<a ng-click="dash.setActiveTimeEdit(aTime)">
+									{{ aTime.totalDuration }}
+								</a>
+							</li>
+						</ul>
+					</div>
+					<label> Chosen Time ID: {{ dash.activeTimeEdit.id }}
+				</div>
+				
+				<div class="modal-body">
+					<label>Edit Title:</label>
+					<div class="input-group">
+						<input type="text" class="form-control" id="editTimeName">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button" ng-click="dash.setTimeTitle()">Make Change</button>
+						</span>
+					</div>
+					
+					<label> Edit Start Time </label> 
+					<div class="input-group">
+						<input type="date" class="form-control" id="editStartDate">
+						<input type="time" class="form-control" id="editStartTime">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button" ng-click="dash.editStartTime()">Make Change</button>
+						</span>
+					</div>
+					
+					<label> Edit End Time </label> 
+					<div class="input-group">
+						<input type="date" class="form-control" id="editEndDate">
+						<input type="time" class="form-control" id="editEndTime">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button" ng-click="dash.editEndTime()">Make Change</button>
+						</span>
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="leftContainer">
+		<div id="unassignedTimesBox">
+			<div id="unassignedHeader">
+				<h4>
+					Unassigned Times
+				</h4>
+				<button type="button" data-toggle="modal" data-target="#addTimeForm">Create New Time</button>
+				
+			</div>
+			<div id="unassignedContent">
+				<div ng-repeat="aTime in dash.unassignedTimes" class="unassignedBox">
+					{{ aTime.totalDuration || hhmmssmm}}
+					
+					<div class="dropdown">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Assign To Project
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li ng-repeat="aProject in dash.theLogin.allMyProjects">
+								<a ng-click="dash.assignTime(aProject, aTime)">
+									{{ aProject.projectName }}
+								</a>
+							</li>
+						</ul>
+					</div>
+					<button type="button" ng-click="dash.deleteUnassignedTimes(aTime)">Delete This Time</button>
+				</div>
+			</div>
+		</div>
+		<div id="tagsBox">
+			<div id="tagsHeader">
+				<h4>
+					Tags
+				</h4>
+				<form ng-submit="dash.submitTagName()"><input type="text" id="newTagName"/></form>
+			</div>
+			
+			<div id="tagsContent">
+			
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Tag Name</th>
+							<th>Assign To Time</th>
+							<th>Assign To Project</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="aTag in dash.theLogin.allMyTags">
+							<td>{{ aTag.name }}</td>
+							<td>
+								<div class="dropdown">
+									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Assign To Time
+									<span class="caret"></span></button>
+									<ul class="dropdown-menu">
+										<li ng-repeat="aTime in dash.theLogin.unassignedTimes">
+											<a ng-click="dash.assignTagToTime(aTime, aTag)">
+												{{ aTime.totalDuration }}
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+							<td>
+								<div class="dropdown">
+									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Assign To Project
+									<span class="caret"></span></button>
+									<ul class="dropdown-menu">
+										<li ng-repeat="aProject in dash.theLogin.allMyProjects">
+											<a ng-click="dash.assignTagToProject(aProject, aTag)">
+												{{ aProject.projectName }}
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				
+			</div>
+		</div>
+	</div>
+	
+	<div id="timerContainer">
+		<button id='timerButton' type='button' class='btn btn-info btn-circle' ng-click='dash.startTimer()'>
+			<i class='glyphicon glyphicon-play'>
+			</i>
+		</button>
+		<div id="currentTime">
+			{{ dash.totalMilliseconds | hhmmssmm }}
+		</div>
+		<div id="activeInfo">
+			<div id="activeInfoHeader">
+				<h4> Project Name:  {{ dash.activeProject.projectName }}</h4>
+				<h4> Total times: {{ dash.activeProject.allMyTimes.length }} </h4>
+				<button type="button" data-toggle="modal" data-target="#editTimeForm">Edit Times Page</button>
+				
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Total Duration</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="aTime in dash.activeProject.allMyTimes">
+						<td>{{ aTime.title }}</td>
+						<td>{{ aTime.totalDuration }}</td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div id="projectsContainer">
+		<div id="projectsHeader">
+			<h4>
+				Projects
+			</h4>
+			
+			<button type="button" data-toggle="modal" data-target="#projectForm">+</button>
+		</div>
+		
+		<div id="projectListingBox">
+			<div id="projectListing" ng-repeat="aProject in dash.allMyProjects">
+				{{ aProject.projectName }} 
+				<div class="projectOptions">
+					<button type="button" data-toggle="modal" ng-click="dash.setActive(aProject.id)">set active</button>
+					<button type="button" data-toggle="modal" ng-click="dash.deleteProject(aProject)">delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>

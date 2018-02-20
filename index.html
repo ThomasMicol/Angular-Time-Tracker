@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<!-- Angular Related Links -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+		<!-- External Java Files -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- Internal Source Files -->
+		<script src="_src/Controller_def/dashboardController_Def.js"></script>
+		<script src="_src/Controller_def/reportsController_Def.js"></script>
+		<script src="_src/Controller.js"></script>
+		<script src="_src/Login.js"></script>
+		<script src="_src/Project.js"></script>
+		<script src="_src/Time.js"></script>
+		<script src="_src/Tag.js"></script>
+		<!-- Stylesheet Links -->
+		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="_src/styles.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<script>
+			let theLogin = new Login();
+		</script>
+	</head>
+	
+	<body ng-app="timerApp">
+		<header>
+			<a href="#Dashboard"> Dashboard </a>
+			|
+			<a href="#Reports"> Reports </a>
+		</header> 
+		
+		<div ng-view class="containter" >
+			
+		</div>
+	</body>
+	
+</html>

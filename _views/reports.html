@@ -1,0 +1,114 @@
+<head>
+	<title>
+		Reports
+	</title>
+	<link rel="stylesheet" type="text/css" href="../_src/styles.css">
+</head>
+
+<div id="reportContainer" ng-controller="reportsController as report">
+	<div id="reportButtonContainer">
+		<button ng-click="report.toggleBasicReport()">Toggle Basic Report</button>
+	</div>
+	<div id="basicReport" ng-show="report.showBasicReport">
+			<div id="basicReport_Header">
+				<h2>
+					Basic Report
+				</h2>
+			</div>
+			<div id="rpt_unassignedContainer">
+				<div id="rpt_unassignedTimesHeader">
+					<h3>
+						List of Unassigned Times
+					</h3>
+				</div>
+				<div id="rpt_unassignedContent">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Time ID</th>
+								<th>Starting Time</th>
+								<th>End Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="aTime in report.formattedUnassignedTimes">
+								<td>
+									{{ aTime.id }}
+								</td>
+								<td>
+									{{ aTime.startTime }}
+								</td>
+								<td>
+									{{aTime.endTime }}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div id="rpt_projectsContainer">
+				<div id="rpt_projectsHeader">
+					<h3>
+						List of all Projects
+					</h3>
+				</div>
+				<div id="rpt_projectsContent">
+					<div id="aProjectDiv" ng-repeat="aProject in report.formattedProjects">
+						<h4> 
+							Project Name: {{aProject.projectName}}<br/>
+						</h4>
+						<label>Tags Associated With This Project</label>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Tag ID</th>
+									<th>Tag Name</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="aTag in aProject.allMyTags">
+									<td>
+										{{ aTag.ID }}
+									</td>
+									<td>
+										{{ aTag.name }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<label>Times Associated With This Project</label>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Time ID</th>
+									<th>Task</th>
+									<th>Time Started</th>
+									<th>Time Ended</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="aTime in aProject.allMyTimes">
+									<td>
+										{{ aTime.id }}
+									</td>
+									<td>
+										{{ aTime.title }}
+									</td>
+									<td>
+										{{ aTime.startTime }}
+									</td>
+									<td>
+										{{ aTime.endTime }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+	</div>
+</div>

@@ -1,0 +1,140 @@
+body{
+	margin: 0px;
+	background-color: #ffffe6;	
+}
+
+header{
+	display: flex;
+	width: 100%;
+	height: 1.7em;
+	background-color:#004466;
+	font-size: 3em;
+	color: #ffffe6;	
+}
+
+header a{
+	text-decoration: none;
+	font-family: Verdana, san-serif;
+	text-align: center;
+	width: 50%;
+	color: #ffffe6;	
+}
+
+/* Report Stylings*/
+
+#reportContainer{
+	margin: 0 auto;
+	display:block;
+	width: 60em;
+}
+
+/* Dashboard Stylings */
+
+#dashboardContainer{
+	display: flex;
+	margin-top: 3em;
+}
+
+#tagsHeader{
+	display: flex;
+}
+
+#leftContainer{
+	width: 41em;
+	margin: 0em 5em 3em 3em;
+}
+
+#unassignedTimesBox{
+	width: 100%;
+	box-shadow: 1px 1px 5px #555 inset;
+	background-color: white;
+	height: 30em;
+	padding: 0.5em 0em 0em 1em;
+}
+
+.unassignedBox{
+	display: flex;
+}
+
+#unassignedHeader{
+	display: flex;
+}
+
+#unassignedHeader button{
+	margin-left: 10em;
+}
+
+#activeInfo button{
+	margin-left: 0em;
+}
+
+#tagsBox{ 
+	margin-top: 2em;
+	box-shadow: 1px 1px 5px #555 inset;
+	background-color:white;
+	height: 23em;
+	padding: 0.5em 0em 0em 1em;
+}
+
+#timerContainer{ 
+	width: 38em;
+}
+
+#projectsContainer{
+	width: 41em;
+	margin: 0em 3em 3em 5em;
+	background-color: white;
+	padding: 0.5em 0em 0em 1em;
+	box-shadow: 1px 1px 5px #555 inset;
+	height: 55em;
+}
+
+#projectListing{
+	display: flex;
+}
+
+.projectOptions{
+	
+}
+
+#currentTime{
+	display: block;
+	margin: 1.1em auto;
+	width: 6em;
+	font-family: 'Work Sans', sans-serif;
+	color: #004466;
+	font-size: 2em;
+}
+
+#activeInfo{
+	background-color:white;
+	box-shadow: 1px 1px 5px #555 inset;
+	height: 37em;
+	padding: 0.01em 0em 0em 1em;
+}
+
+
+
+#projectsHeader{
+	display: flex;
+
+}
+
+/* Timer Button Stylings */
+.btn-circle {
+
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 75px;
+}
+
+#timerContainer button{
+	display: block;
+	width: 150px;
+	margin: 0 auto;
+	border: 0px;
+}
